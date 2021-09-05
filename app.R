@@ -7,34 +7,35 @@
 #    http://shiny.rstudio.com/
 #
 
-readRDS("predictor.rds")
+
 library(shiny)
 
-# Define UI for application that draws a histogram
+# Define UI for application
 ui <- fluidPage(
 
     # Application title
     titlePanel("Word Prediction App"),
 
-    # Sidebar with a slider input for number of bins 
+    # Sidebar with input field and submit button
     sidebarLayout(
         sidebarPanel(
             textInput("text", label = "Please enter your phrase here:", value = "Hi, how are"),
             submitButton("Submit")
         ),
 
-        # Show a plot of the generated distribution
+        # Output table
         mainPanel(
            dataTableOutput("table")
         )
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
 
     output$table <- renderDataTable({
-        predictions <- predict(predictor, input$text)
+        readRDS("predictor.rds")
+        predictions <- stats::predict(predictor, input$text)
         predictions <- data.frame(predictions, stringsAsFactors = FALSE)
         names(predictions) <- c("Predictions")
         predictions
