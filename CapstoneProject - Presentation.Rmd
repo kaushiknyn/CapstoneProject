@@ -1,7 +1,7 @@
 ---
-title: "Mortgage Calculator"
+title: "Capstone Project"
 author: "Kaushik Sivasankaran"
-date: "25th July 2021"
+date: "11th September 2021"
 output:
   ioslides_presentation: default
   html_document:
@@ -10,51 +10,57 @@ output:
   slidy_presentation: default
 mode: selfcontained
 job: Reproducible Pitch Presentation
-subtitle: Developing Data Products Course Project
+subtitle: Final Presentation
 ---
 
 
 ## Introduction
 
-This presentation is part of the Developing Data Products Coursera.org course project submission.
+This is the final presentation to present the Word Prediction App created for the Capstone Project.
 
-It is an R Presentation generated with RStudio.
 
-The Shiny application pitched by this presentation is at 
-https://kaushik-sivasankaran.shinyapps.io/Course-9-Week-4-Assignment/
+The Shiny Word Prediction application can be found here:
+https://kaushik-sivasankaran.shinyapps.io/CapstoneProject/
+
+**!!!Due to the size of the model, the application takes around 2 minutes to load. Thanks for your patience!!! **
 
 The Shiny app source code is available at 
-https://github.com/kaushiknyn/course-9-week-4-assignment
+https://github.com/kaushiknyn/CapstoneProject
 
 
-## Overview
+This slide deck will cover the following topics
 
-- The application is written in Shiny which is a web application framework for R
-- The source code consists of two files: server.R and ui.R
-- server.R includes the the server logic of a Shiny web application
-- ui.R includes the the user-interface definition, which uses the sidebarLayout template
-- The application is hosted on Rstudio's shiny server in the cloud (Shinyapps.io)
-
-## Sidebar Panel 
-
-- The sidebar panel provides fields for the user to input the parameters required to calculate the mortgage
-- The first input field is for entering the **Principal**, which is the total loan amount the user wants to take
-- The second input field is for entering the **Interest Rate**, the rate at which the bank will loan the money to the user
-- The third input is a slider bar where the user can determine the best term of payment. This ranges from 1 to 30 years
-- Finally there is a checkbox option for the user to visualiz the mortgage payment via an intuitive graph
+- Data cleansing
+- Algorithm
+- The Application
+- Look and feel
 
 
-## Main Panel
+## Data Cleansing
 
-The main panel comprises of the summary section and the graph section
+- The first step of the process was to import the blog, news and twitter data, combine and sample them in order to acquire data of reasonable to size to create training and test datasets
+- The next step was to cleanse this sampled data. In particular, profane words, alpha numeric characters, numbers, white spaces, etc., were removed
+- Next, this cleansed data was then split into a train and test dataset and saved
 
-- In the summary section, the user sees the total cost of the loan he purchases given the interst rate from the bank
-- In the graph, he is able to visualize how long it takes for him to pay off the interest given his input criteria
+## Algorithm 
 
+- For this project, the *sbo* package was used to model and predict the next word using n-gram models (https://cran.r-project.org/web/packages/sbo/sbo.pdf)
+- This is based on the simple back off prediction model (https://en.wikipedia.org/wiki/Katz%27s_back-off_model)
+- The *sbo_predtable* function from the package allows the user to take in the training dataset, the number of N-grams to use for the (*5-grams were created for this prediction model*)
+- The function also does a bit of preprocessing to further clean the data and also identify *End of Sentence (EOS)* patterns
+- Based on the input, the model will provide the 5 highest probable next-word predictions
+- Finally, the *sbo_predictor* function is used to build the model, which is stored in the *Predictor* object to be sourced in the shiny app server code 
 
-## How it Looks
+## The Application
+
+The Shiny Application comprises of a sidebar panel and a main panel
+
+- The sidebar panel consists of an input text box with a default input of "Hi, how are". The user can provide their own input and click on the submit button
+- The main panel comprises of an output table that provides the top 5 next-word predictions based on the user's input
+
+## Look and Feel
 
 This is how the interface will look:
 
 
-![Mortgage Calculator Interface](Mortgage_Calulator.png)
+![Word Prediction App](Word_Prediction.png)

@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/807899/b90ed9cd5cef46fbb5c91d7fe2cdd174
+bundleId: https://api.rpubs.com/api/v1/document/807899/b90ed9cd5cef46fbb5c91d7fe2cdd174
+url: http://rpubs.com/kaushiknyn/807899
+when: 1631389728.98318
+lastSyncTime: 1631389728.98318
