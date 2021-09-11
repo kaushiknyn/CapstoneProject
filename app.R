@@ -8,7 +8,14 @@
 #
 
 
+library(brio)
+library(waldo)
 library(shiny)
+
+readRDS("predictor.rds")
+
+source("Stupid back off model.R")
+
 
 # Define UI for application
 ui <- fluidPage(
@@ -34,7 +41,8 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     output$table <- renderDataTable({
-        readRDS("predictor.rds")
+        library(stats)
+        
         predictions <- stats::predict(predictor, input$text)
         predictions <- data.frame(predictions, stringsAsFactors = FALSE)
         names(predictions) <- c("Predictions")
